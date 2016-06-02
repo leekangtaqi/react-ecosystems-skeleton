@@ -1,0 +1,28 @@
+{
+  "name": "react-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leekangtaqi/react-test.git"
+  },
+  "author": "leekangtaqi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leekangtaqi/react-test/issues"
+  },
+  "homepage": "https://github.com/leekangtaqi/react-test#readme",
+  "dependencies": {
+    "mongoose": "^4.4.19",
+    "react": "^15.1.0",
+    "react-router": "^2.4.1",
+    "redux-router": "^2.0.0-beta1"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.1"
+  }
+}
