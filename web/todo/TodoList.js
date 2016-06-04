@@ -1,7 +1,5 @@
 import React from 'react';
 import Todo from './Todo';
-import Nest1 from './Nest1';
-import Nest2 from './Nest2';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import { push } from 'react-router-redux'
@@ -13,6 +11,7 @@ class TodoList extends React.Component {
         super(props, context);
     };
     onAddTodo(){
+        console.log(this)
         this.props.addTodo(this.refs.newTodo.value);
         this.refs.newTodo.value = "";
     };
@@ -48,7 +47,7 @@ class TodoList extends React.Component {
                 <ul>
                     <li><Link to="/nest1">跳转1</Link></li>
                     <li><Link to={{pathname: '/nest2', query: {'q': 'something'}}}>跳转3</Link></li>
-                    <li><a onClick={this.jump.bind(this)}>跳转三</a></li>
+                    <li><a href="javascript:void(0)" onClick={this.jump.bind(this)}>跳转三</a></li>
                 </ul>
                 <div>
                     {this.props.children}
