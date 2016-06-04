@@ -1,6 +1,6 @@
 import {List, Map} from 'immutable';
 
-export function todos(todos=List([]), action){
+const todos = (todos=List([]), action) => {
     switch (action.type){
         case 'addTodo':
             return todos.push(Map(action.payload));
@@ -15,4 +15,15 @@ export function todos(todos=List([]), action){
         default:
             return todos;
     }
-}
+};
+
+const visibilityFilter = (visibilityFilter="SHOW_ALL", action) => {
+    switch (action.type){
+        case 'change':
+            return action.payload;
+        default:
+            return visibilityFilter;
+    }
+};
+
+export default {todos, visibilityFilter};
