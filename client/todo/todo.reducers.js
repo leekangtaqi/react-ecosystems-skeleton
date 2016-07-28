@@ -5,7 +5,7 @@ const todos = (todos=List([]), action) => {
         case 'addTodo':
             return todos.push(Map(action.payload));
         case 'toggleTodo':
-            return todos.map(t=>{
+            return todos.map(t => {
                 if(t.get('id') === action.payload){
                     return t.update('isDone', isDone => !isDone);
                 }else{

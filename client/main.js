@@ -1,24 +1,23 @@
 import _ from 'lodash';
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import { Router, Route, browserHistory} from 'react-router';
-import { routes } from './routes';
 import configureStore from './config/store';
+import composeInitData from './config/data';
+import composeRoot from './config/root';
+import { browserHistory } from 'react-router';
+import { routes } from './routes';
+import { fromJS } from 'immutable';
 
-var store = configureStore({});
+let initalState = window.__INITIAL_STATE__;
+if(initalState){
+    initalState = composeInitData(initalState);
+}
 
-const history = syncHistoryWithStore(browserHistory, store);
+let store = configureStore(initalState);
+let {root, history} = composeRoot(store, browserHistory, routes);
 
 history.listen(location => {
     console.log(location);
 });
-
-let root =
-    <Provider store={store}>
-        <Router routes={routes} history={history}></Router>
-    </Provider>;
 
 ReactDOM.render(
     root,

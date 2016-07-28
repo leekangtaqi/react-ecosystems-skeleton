@@ -4,12 +4,17 @@ require("babel-core/register")({
     presets: ['es2015-node5', 'stage-3', 'react']
 });
 
+//client deps
 import path from 'path';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { routes } from '../client/routes';
+import composeRoot from '../client/config/root';
+import configureStore from '../client/config/store';
 
+//server-side deps
 import koa from 'koa';
 import koaRouterCreator from 'koa-router';
 import serve from 'koa-static';
@@ -24,40 +29,73 @@ let matchThunk = Promise.promisify(match);
 let app = koa();
 let router = koaRouterCreator();
 
-app.use(function*(next){
-  console.warn(this.path)
-  yield next;
-})
+app.use(views(path.join(__dirname, './views'), { extension: 'html', map: { html: 'swig' }}));
+
+app.use(mount('/public', serve(path.join(__dirname, '../public'), {gzip: true})));
 
 // for production env and server side support
 app.use(function*(next){
     // Note that req.url here should be the full URL path from
     // the original request, including the query string.
     let data = { routes, location: this.path }
-    
+    let { code, payload } = yield RouteMatchHandler(data);
+    switch(code){
+      case 500:
+        this.status = code;
+        this.body = `Internal Server Error ${payload}`;
+        break;
+      case 301:
+        this.status = code;
+        this.redirect(payload);
+        break;
+      case 200:
+        this.status = code; 
+        yield this.render('index', { html: payload.html, state: payload.state });
+        break;
+      case 404:
+        this.status = code;
+        this.body = payload;
+        break;
+    }
+})
+
+function RouteMatchHandler(data){
+  return new Promise((resolve, reject) => {
     match(data, (error, redirectLocation, renderProps) => {
       if (error) {
-        this.status = 500;
-        this.body = `Internal Server Error ${err}`;
+        return resolve({
+          code: 500,
+          payload: error
+        });
       } else if (redirectLocation) {
-          this.redirect(redirectLocation.pathname + redirectLocation.search);
+        let url = redirectLocation.pathname + redirectLocation.search;
+        return resolve({
+          code: 301,
+          payload: url
+        });
       } else if (renderProps) {
           // You can also check renderProps.components or renderProps.routes for
           // your "not found" component or route respectively, and send a 404 as
           // below, if you're using a catch-all route.
-          console.warn(renderProps);
-          this.status = 200;
-          this.body = renderToString(<RouterContext {...renderProps} />);
+          let store = configureStore();
+          let html = renderToString(
+            <Provider store={store}>
+              {<RouterContext {...renderProps} />}
+            </Provider>
+          );
+          return resolve({
+            code: 200,
+            payload: {html, state: store.getState()}
+          });
       } else {
-        this.status = 404;
-        this.body = 'Not found';
+        return resolve({
+            code: 301,
+            payload: 'NOT FOUND'
+          });
       }
     })
-})
-
-app.use(views(path.join(__dirname, './views'), { map: { html: 'swig' }}));
-
-app.use(mount('/public', serve(path.join(__dirname, '../public'), {gzip: true})));
+  });
+}
 
 app.use(router.routes()).use(router.allowedMethods());
 
