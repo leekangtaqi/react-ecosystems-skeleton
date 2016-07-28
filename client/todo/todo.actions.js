@@ -21,7 +21,7 @@ export function toggleFilter(intention){
                 type: 'change',
                 payload: intention
             })
-        }, 200)
+        }, 0)
     }
 }
 

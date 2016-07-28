@@ -1,4 +1,4 @@
-let reqContext = require.context('../web', true, /.*reducers.js/);
+let reqContext = require.context('../client', true, /.*reducers.js/);
 
 let reducers = requireAll(reqContext).reduce((o, m)=>{
     for(var p in m['default']){
@@ -7,7 +7,10 @@ let reducers = requireAll(reqContext).reduce((o, m)=>{
     return o;
 }, {});
 
-export default reducers;
+export default {
+    context: reqContext, 
+    reducers
+};
 
 function requireAll(requireContext) {
     return requireContext.keys().map(requireContext);
