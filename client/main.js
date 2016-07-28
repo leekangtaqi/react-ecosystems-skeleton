@@ -9,7 +9,7 @@ import { fromJS } from 'immutable';
 
 let initalState = window.__INITIAL_STATE__;
 if(initalState){
-    initalState = composeInitData(initalState);
+    initalState = composeInitData(initalState, configureStore());
 }
 
 let store = configureStore(initalState);

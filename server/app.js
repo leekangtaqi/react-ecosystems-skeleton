@@ -6,13 +6,9 @@ require("babel-core/register")({
 
 //client deps
 import path from 'path';
-import React from 'react';
-import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
 import { routes } from '../client/routes';
 import composeRoot from '../client/config/root';
-import configureStore from '../client/config/store';
+import { RouteMatchHandler } from './util/route.match'
 
 //server-side deps
 import koa from 'koa';
@@ -21,11 +17,7 @@ import serve from 'koa-static';
 import views from 'koa-views';
 import mount from 'koa-mount';
 import fs from 'fs';
-import co from 'co';
-import Promise from 'bluebird';
 
-const readFile = co.wrap(fs.readFile);
-let matchThunk = Promise.promisify(match);
 let app = koa();
 let router = koaRouterCreator();
 
@@ -56,46 +48,10 @@ app.use(function*(next){
         this.status = code;
         this.body = payload;
         break;
+      default:
+        throw new Error(`error ocurr in flow Match route of server-side rendering`);
     }
 })
-
-function RouteMatchHandler(data){
-  return new Promise((resolve, reject) => {
-    match(data, (error, redirectLocation, renderProps) => {
-      if (error) {
-        return resolve({
-          code: 500,
-          payload: error
-        });
-      } else if (redirectLocation) {
-        let url = redirectLocation.pathname + redirectLocation.search;
-        return resolve({
-          code: 301,
-          payload: url
-        });
-      } else if (renderProps) {
-          // You can also check renderProps.components or renderProps.routes for
-          // your "not found" component or route respectively, and send a 404 as
-          // below, if you're using a catch-all route.
-          let store = configureStore();
-          let html = renderToString(
-            <Provider store={store}>
-              {<RouterContext {...renderProps} />}
-            </Provider>
-          );
-          return resolve({
-            code: 200,
-            payload: {html, state: store.getState()}
-          });
-      } else {
-        return resolve({
-            code: 301,
-            payload: 'NOT FOUND'
-          });
-      }
-    })
-  });
-}
 
 app.use(router.routes()).use(router.allowedMethods());
 

@@ -7,7 +7,7 @@ export default function composeRoot(store, mode, routes){
 
 	const history = syncHistoryWithStore(mode, store);
 
-	return { 
+	return {
 		root:
 			<Provider store={store}>
 					<Router routes={routes} history={history}></Router>        
