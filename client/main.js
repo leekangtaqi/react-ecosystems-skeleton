@@ -6,6 +6,7 @@ import composeRoot from './config/root';
 import { browserHistory } from 'react-router';
 import { routes } from './routes';
 import { fromJS } from 'immutable';
+import rootSagaAndModuleContext from './registerSagas';
 
 let initalState = window.__INITIAL_STATE__;
 if(initalState){
@@ -13,6 +14,9 @@ if(initalState){
 }
 
 let store = configureStore(initalState);
+
+configureStore.sagaMiddleware.run(rootSagaAndModuleContext.rootSaga);
+
 let { root, history } = composeRoot(store, browserHistory, routes);
 
 history.listen(location => {

@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
     entry: [
+        'babel-regenerator-runtime',
         'webpack-dev-server/client?http://0.0.0.0:8080',//资源服务器地址
         'webpack/hot/only-dev-server',
         './client/main.js'
