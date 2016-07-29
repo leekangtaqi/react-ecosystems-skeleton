@@ -19,6 +19,8 @@ app.use(views(path.join(__dirname, './views'), { extension: 'html', map: { html:
 app.use(mount('/public', serve(path.join(__dirname, './public'), {gzip: true})));
 app.use(mount('/dist', serve(path.join(__dirname, '../dist'), {gzip: true})));
 
+//api mount point
+
 // server side support
 app.use(serverSide);
 
