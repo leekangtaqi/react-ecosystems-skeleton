@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
 
-class TodoList extends React.Component {
+export default class TodoList extends React.Component {
     static fetchData({ store }){
         return store.dispatch(addTodo('hehe'));
     }
