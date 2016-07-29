@@ -12,9 +12,12 @@ import serverSide from './middlewares/server-side';
 let app = koa();
 let router = koaRouterCreator();
 
+//init view engine
 app.use(views(path.join(__dirname, './views'), { extension: 'html', map: { html: 'swig' }}));
 
-app.use(mount('/public', serve(path.join(__dirname, '../public'), {gzip: true})));
+//static file serve
+app.use(mount('/public', serve(path.join(__dirname, './public'), {gzip: true})));
+app.use(mount('/dist', serve(path.join(__dirname, '../dist'), {gzip: true})));
 
 // server side support
 app.use(serverSide);

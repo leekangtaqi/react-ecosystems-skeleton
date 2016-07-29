@@ -10,7 +10,7 @@
         window.__INITIAL_STATE__ = {{ JSON.stringify(state) }};
     </script>
     {% if env === 'production' %}
-    <script src="/public/js/bundle.js"></script>
+    <script src="/dist/client/assets/js/bundle.js"></script>
     {% else %}
     <script src="http://localhost:8080/client/bundle.js"></script>
     {% endif %}
