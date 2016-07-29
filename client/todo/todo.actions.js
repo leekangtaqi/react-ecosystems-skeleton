@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 export function addTodo(text){
     return new Promise((resolve, reject) => {
         resolve({
-            type: 'addTodoAsync',
+            type: 'addTodo',
             payload: {
                 id: uid(),
                 isDone: false,
