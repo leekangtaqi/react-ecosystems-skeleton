@@ -4,19 +4,14 @@ require("babel-core/register")({
     presets: ['es2015-node5', 'stage-3', 'react']
 });
 
-//client deps
 import path from 'path';
-import { routes } from '../client/routes';
-import composeRoot from '../client/config/root';
-import { RouteMatchHandler } from './util/route.match'
-
-//server-side deps
 import koa from 'koa';
 import koaRouterCreator from 'koa-router';
 import serve from 'koa-static';
 import views from 'koa-views';
 import mount from 'koa-mount';
 import fs from 'fs';
+import serverSide from './middlewares/server-side';
 
 let app = koa();
 let router = koaRouterCreator();
@@ -25,33 +20,8 @@ app.use(views(path.join(__dirname, './views'), { extension: 'html', map: { html:
 
 app.use(mount('/public', serve(path.join(__dirname, '../public'), {gzip: true})));
 
-// for production env and server side support
-app.use(function*(next){
-    // Note that req.url here should be the full URL path from
-    // the original request, including the query string.
-    let data = { routes, location: this.path }
-    let { code, payload } = yield RouteMatchHandler(data);
-    switch(code){
-      case 500:
-        this.status = code;
-        this.body = `Internal Server Error ${payload}`;
-        break;
-      case 301:
-        this.status = code;
-        this.redirect(payload);
-        break;
-      case 200:
-        this.status = code; 
-        yield this.render('index', { html: payload.html, state: payload.state });
-        break;
-      case 404:
-        this.status = code;
-        this.body = payload;
-        break;
-      default:
-        throw new Error(`error ocurr in flow Match route of server-side rendering`);
-    }
-})
+// server side support
+app.use(serverSide);
 
 app.use(router.routes()).use(router.allowedMethods());
 

@@ -13,7 +13,7 @@ if(initalState){
 }
 
 let store = configureStore(initalState);
-let {root, history} = composeRoot(store, browserHistory, routes);
+let { root, history } = composeRoot(store, browserHistory, routes);
 
 history.listen(location => {
     console.log(location);
