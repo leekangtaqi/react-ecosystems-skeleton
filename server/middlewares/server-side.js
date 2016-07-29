@@ -18,7 +18,7 @@ export default function* serverSide(){
 			break;
 		case 200:
 			this.status = code; 
-			yield this.render('index', { html: payload.html, state: payload.state });
+			yield this.render('index', { html: payload.html, state: payload.state, env: process.env.NODE_ENV});
 			break;
 		case 404:
 			this.status = code;
