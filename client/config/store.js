@@ -13,10 +13,10 @@ const reducer = combineReducers({
 });
 
 const routeMw = routerMiddleware(browserHistory);
-const sagaMw = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 
 function configureStore(initialState={}) {
-	const store = compose(applyMiddleware(sagaMw, routeMw, ...(_.values(middlewares))))(createStore)(reducer, initialState);
+	const store = compose(applyMiddleware(sagaMiddleware, routeMw, ...(_.values(middlewares))))(createStore)(reducer, initialState);
   if(module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept(reducerAndModuleContext.context, () => {
@@ -25,6 +25,7 @@ function configureStore(initialState={}) {
   }
   return store;
 };
-configureStore.sagaMiddleware = sagaMw;
+configureStore.sagaMiddleware = sagaMiddleware;
 
 export default configureStore;
+export { sagaMiddleware };

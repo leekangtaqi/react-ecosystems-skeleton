@@ -3,8 +3,7 @@ let ex = null;
 if(isBrowser()){
     //client-side
     let reqContext = require.context('../client', true, /.*sagas.js/);
-		let sagasMap = requireAll(reqContext).reduce((o, m)=>{
-				console.warn(m)
+    let sagasMap = requireAll(reqContext).reduce((o, m)=>{
         for(var p in m['default']){
             o[p] = m['default'][p];
         }
@@ -14,8 +13,8 @@ if(isBrowser()){
     ex = {
         context: reqContext, 
         rootSaga: function*(){
-					yield sagas.map(saga => saga());
-				}
+            yield sagas.map(saga => saga());
+        }
     }
 }else{
     //server-side

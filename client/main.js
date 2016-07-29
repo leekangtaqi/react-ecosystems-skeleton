@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
-import configureStore from './config/store';
+import configureStore, { sagaMiddleware } from './config/store';
 import composeInitData from './config/data';
 import composeRoot from './config/root';
 import { browserHistory } from 'react-router';
