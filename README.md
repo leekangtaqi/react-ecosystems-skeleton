@@ -1,2 +1,2 @@
 # react-ecosystems-skeleton
-react+redux+react-router-redux+immutable
+react+redux+redux-saga+react-router-redux+immutable
