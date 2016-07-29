@@ -9,14 +9,14 @@ import { fromJS } from 'immutable';
 
 let initalState = window.__INITIAL_STATE__;
 if(initalState){
-    initalState = composeInitData(initalState, configureStore());
+    composeInitData(initalState, configureStore());
 }
 
 let store = configureStore(initalState);
 let { root, history } = composeRoot(store, browserHistory, routes);
 
 history.listen(location => {
-    console.log(location);
+    
 });
 
 ReactDOM.render(

@@ -13,11 +13,11 @@ const logger = store => next => action => {
         actionName = '[Async-Promise]';
         actionShow = action;
     }
-    console.group(actionName);
+    isBrowser() && console.group(actionName);
     console.info('dispatching', actionShow);
     let result = next(action);
     console.log('next state', store.getState());
-    console.groupEnd(actionName);
+    isBrowser() && console.groupEnd(actionName);
     return result
 }
 
@@ -40,7 +40,6 @@ const vanillaPromise = store => next => action => {
     if (typeof action.then !== 'function') {
         return next(action)
     }
-
     return Promise.resolve(action).then(store.dispatch)
 }
 
@@ -67,6 +66,8 @@ const thunk = store => next => action =>
         action(store.dispatch, store.getState) :
         next(action)
 
+//helpers
+const isBrowser = () => typeof window === 'undefined' ? false : true;
 
 export default {
     logger, timeoutScheduler, vanillaPromise, readyStatePromise, thunk

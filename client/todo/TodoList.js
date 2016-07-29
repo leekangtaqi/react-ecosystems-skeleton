@@ -6,16 +6,19 @@ import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
 
 class TodoList extends React.Component {
+    static fetchData({ store }){
+        return store.dispatch(addTodo('hehe'));
+    }
     constructor(props, context){
         super(props, context);
-    };
+    }
     onAddTodo(){
         this.props.addTodo(this.refs.newTodo.value);
         this.refs.newTodo.value = "";
-    };
+    }
     jump(){
         this.props.doSomeRoute();
-    };
+    }
     render(){
         return(
             <div>

@@ -2,7 +2,7 @@ const uid = () => Math.random().toString(34).slice(2);
 import { push } from 'react-router-redux'
 
 export function addTodo(text){
-    return new Promise(function(resolve, reject){
+    return new Promise((resolve, reject) => {
         resolve({
             type: 'addTodo',
             payload: {
@@ -15,7 +15,7 @@ export function addTodo(text){
 }
 
 export function toggleFilter(intention){
-    return function toggleFilterBegin(dispatch){
+    return dispatch => {
         setTimeout(()=>{
             dispatch({
                 type: 'change',

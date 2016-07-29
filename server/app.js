@@ -33,7 +33,7 @@ app.listen(3030, () => {
   `)
 })
 
-// start a webpack-dev-server with config
+// start a webpack-dev-server with config in development
 if(process.env.NODE_ENV === 'development'){
   let webpack = require('webpack');
   let WebpackDevServer = require('webpack-dev-server');
