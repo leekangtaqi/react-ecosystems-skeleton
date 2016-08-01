@@ -1,4 +1,6 @@
 let ex = null;
+let context = null;
+let rootSaga = null;
 
 if(isBrowser()){
     //client-side
@@ -10,30 +12,37 @@ if(isBrowser()){
         return o;
     }, {})
     let sagas = Object.keys(sagasMap).map(k => sagasMap[k]);
+    context = reqContext;
+    rootSaga = function*(){
+        yield sagas.map(saga => saga());
+    }
     ex = {
         context: reqContext, 
-        rootSaga: function*(){
-            yield sagas.map(saga => saga());
-        }
+        rootSaga: rootSaga
     }
 }else{
     //server-side
     let rs = [];
     rs.push(require('./todo/todo.sagas'));
-    let sagas = rs.reduce((o, m) => {
+    let sagasMap = rs.reduce((o, m) => {
         for(var p in m['default']){
             o[p] = m['default'][p];
         }
         return o;
     }, {});
+    let sagas = Object.keys(sagasMap).map(k => sagasMap[k]);
+    rootSaga = function*(){
+        yield sagas.map(saga => saga());
+    }
     ex = {
-        rootSaga: function*(){
-            yield sagas.map(saga => saga());
-        }
+        rootSaga: rootSaga
     }
 }
 
-
+export {
+    context,
+    rootSaga
+}
 export default ex;
 
 function requireAll(requireContext) {

@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import configureStore from '../../client/config/store';
 import React from 'react';
 import { wrap } from 'co';
-import rootSagaAndModuleContext from '../../client/registerSagas';
+import { rootSaga } from '../../client/registerSagas';
 
 export function RouteMatchHandler(data){
   return new Promise((resolve, reject) => {
@@ -26,8 +26,7 @@ export function RouteMatchHandler(data){
         // below, if you're using a catch-all route.
         let { query, params, components, history} = renderProps;
         let store = configureStore();
-        let rootSaga = rootSagaAndModuleContext.rootSaga;
-        let rootTask = store.runSaga(rootSaga, store);
+        let rootTask = store.runSaga(rootSaga);
         let html = null;
         //fetchData entry point
         wrap(execFetchDataEntryPoint)(components, { query, params, store, history })
@@ -37,7 +36,7 @@ export function RouteMatchHandler(data){
                 {<RouterContext {...renderProps} />}
               </Provider>
             )
-            return store.close();
+            return store.dispatch(END);
           })
           .then(() => {
             return rootTask.done

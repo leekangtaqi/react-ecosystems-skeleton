@@ -23,8 +23,8 @@ function configureStore(initialState={}) {
       store.replaceReducer(reducer);
     });
   }
-  store.runSaga = sagaMiddleware.run; //eslint-disable-line
-  store.close = () => store.dispatch(END); //eslint-disable-line
+  store.runSaga = sagaMiddleware.run;
+  store.close = () => store.dispatch(END);
   return store;
 };
 configureStore.sagaMiddleware = sagaMiddleware;

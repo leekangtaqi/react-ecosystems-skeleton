@@ -6,7 +6,7 @@ import composeRoot from './config/root';
 import { browserHistory } from 'react-router';
 import { routes } from './routes';
 import { fromJS } from 'immutable';
-import rootSagaAndModuleContext from './registerSagas';
+import { rootSaga } from './registerSagas';
 
 let initalState = window.__INITIAL_STATE__;
 if(initalState){
@@ -15,7 +15,7 @@ if(initalState){
 
 let store = configureStore(initalState);
 
-let rootTask = store.runSaga(rootSagaAndModuleContext.rootSaga);
+let rootTask = store.runSaga(rootSaga);
 
 rootTask.done.then(() => {
     console.warn('done!!!!!!!!!!!!!!')
