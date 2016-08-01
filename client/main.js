@@ -15,7 +15,13 @@ if(initalState){
 
 let store = configureStore(initalState);
 
-configureStore.sagaMiddleware.run(rootSagaAndModuleContext.rootSaga);
+let test = sagaMiddleware.run(rootSagaAndModuleContext.rootSaga);
+
+test.done.then(t => {
+    console.error(t);
+}).catch(e => {
+    console.error(e);
+})
 
 let { root, history } = composeRoot(store, browserHistory, routes);
 

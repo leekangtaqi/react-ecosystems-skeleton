@@ -4,7 +4,7 @@ import { Router, Route, browserHistory} from 'react-router';
 import middlewares from '../middlewares/index';
 import reducerAndModuleContext from '../registerReducers';
 import { routerReducer } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware, { END } from 'redux-saga'
 import _ from 'lodash';
 
 const reducer = combineReducers({
@@ -23,6 +23,8 @@ function configureStore(initialState={}) {
       store.replaceReducer(reducer);
     });
   }
+  store.runSaga = sagaMiddleware.run; //eslint-disable-line
+  store.close = () => store.dispatch(END); //eslint-disable-line
   return store;
 };
 configureStore.sagaMiddleware = sagaMiddleware;
