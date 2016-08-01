@@ -1,5 +1,5 @@
-import { put, call, fork } from 'redux-saga/effects';
-import { takeEvery, delay } from 'redux-saga';
+import { put } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
 
 function* addTodoHandler(action){
 	yield put({type: 'addTodo', payload: action.payload})
