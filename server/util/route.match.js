@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import configureStore from '../../client/config/store';
 import React from 'react';
 import { wrap } from 'co';
+import rootSagaAndModuleContext from '../../client/registerSagas';
 
 export function RouteMatchHandler(data){
   return new Promise((resolve, reject) => {
@@ -25,14 +26,28 @@ export function RouteMatchHandler(data){
         // below, if you're using a catch-all route.
         let { query, params, components, history} = renderProps;
         let store = configureStore();
+        let rootSaga = rootSagaAndModuleContext.rootSaga;
+        let rootTask = store.runSaga(rootSaga, store);
+        let html = null;
         //fetchData entry point
-        wrap(getFetchDataEntryPoint)(components, { query, params, store, history })
+        wrap(execFetchDataEntryPoint)(components, { query, params, store, history })
           .then(() => {
-            let html = renderToString(
+            renderToString(
               <Provider store={store}>
                 {<RouterContext {...renderProps} />}
               </Provider>
-            );
+            )
+            return store.close();
+          })
+          .then(() => {
+            return rootTask.done
+          })
+          .then(() => {
+            html = renderToString(
+              <Provider store={store}>
+                {<RouterContext {...renderProps} />}
+              </Provider>
+            )
             return resolve({
               code: 200,
               payload: {html, state: store.getState()}
@@ -49,7 +64,7 @@ export function RouteMatchHandler(data){
 }
 
 //helpers
-function* getFetchDataEntryPoint(components, metadata){
+function* execFetchDataEntryPoint(components, metadata){
   if(!components || !components.length){
     return;
   }

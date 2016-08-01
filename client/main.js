@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
-import configureStore, { sagaMiddleware } from './config/store';
+import configureStore from './config/store';
 import composeInitData from './config/data';
 import composeRoot from './config/root';
 import { browserHistory } from 'react-router';
@@ -15,11 +15,12 @@ if(initalState){
 
 let store = configureStore(initalState);
 
-let test = sagaMiddleware.run(rootSagaAndModuleContext.rootSaga);
+let rootTask = store.runSaga(rootSagaAndModuleContext.rootSaga);
 
-test.done.then(t => {
-    console.error(t);
+rootTask.done.then(() => {
+    console.warn('done!!!!!!!!!!!!!!')
 }).catch(e => {
+    console.warn('error!!!!!!!!!!!!!!')
     console.error(e);
 })
 

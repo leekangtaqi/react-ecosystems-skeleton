@@ -27,7 +27,9 @@ if(isBrowser()){
         return o;
     }, {});
     ex = {
-        rootSaga: sagas
+        rootSaga: function*(){
+            yield sagas.map(saga => saga());
+        }
     }
 }
 
