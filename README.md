@@ -16,5 +16,6 @@ http://localhost:3030
 ## Todo
 
 * to build components with FP instead of Class
+* use propTypes to validate props
 * use reselect
 * use addons
