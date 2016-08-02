@@ -3,7 +3,6 @@
 
 ## Recipes
 * react
-* babel - es7
 * redux
 * react-redux
 * react-router
@@ -12,6 +11,8 @@
 * immutable
 * reselect
 * normalizr
+* babel - es7
+* webpack
 
 
 ## Get Started
