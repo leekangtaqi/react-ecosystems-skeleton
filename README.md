@@ -3,6 +3,7 @@
 
 ## Recipes
 * react
+* babel - es7
 * redux
 * react-redux
 * react-router
