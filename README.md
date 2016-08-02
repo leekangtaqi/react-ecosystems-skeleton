@@ -20,10 +20,8 @@ http://localhost:3030
     [ref: ] <a href="https://www.npmjs.com/package/react-immutable-proptypes">if immutable</a>
     
 * resolve of authentication
-
-    opt1 * handle it in route middleware
-    opt2 * [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
-    
+    * handle it in route middleware
+    * [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
 * use normalizr to flat data structure
 * use reselect
 * use addons
