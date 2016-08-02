@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+
 const logger = store => next => action => {
     let actionName = null;
     let actionShow = null;
