@@ -4,7 +4,7 @@ import configureStore from './config/store';
 import composeInitData from './config/data';
 import composeRoot from './config/root';
 import { browserHistory } from 'react-router';
-import { routes } from './routes';
+import { getRoutes } from './routes';
 import { fromJS } from 'immutable';
 import { rootSaga } from './registerSagas';
 
@@ -17,7 +17,7 @@ let store = configureStore(initalState);
 
 let rootTask = store.runSaga(rootSaga);
 
-let { root } = composeRoot(store, browserHistory, routes);
+let { root } = composeRoot(store, browserHistory, getRoutes(store));
 
 ReactDOM.render(
     root,

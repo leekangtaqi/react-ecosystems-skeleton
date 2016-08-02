@@ -9,7 +9,6 @@ export default function* serverSide(){
 	let store = configureStore();
 	let routes = getRoutes(store);
 	let data = { routes, location: this.path }
-	console.warn(routes)
 	let { code, payload } = yield RouteMatchHandler(data, store);
 	switch(code){
 		case 500:

@@ -9,16 +9,6 @@ import Nest1 from './todo/Nest1';
 import Nest2 from './todo/Nest2';
 import Nest3 from './todo/Nest3';
 
-const isClient = () => typeof window === 'undefined' ? false : true;
-
-export var routes =
-<Route path="/" component={App}>
-    <Route path="login" component={Login}/>
-    <Route path="nest1" component={UserIsAuthenticated(Nest1)}/>
-    <Route path="nest2" component={Nest2}/>
-    <Route path="nest3" component={Nest3}/>
-</Route> 
-
 export const getRoutes = store => {
     const connect = (fn) => (nextState, replaceState) => fn(store, nextState, replaceState);
     return (

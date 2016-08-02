@@ -13,7 +13,7 @@ class Login extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		const { isAuthenticated, replace, redirect } = nextProps;
-		const { isAuthenticated: wasAuthenticated } = this.props;	
+		const { isAuthenticated: wasAuthenticated } = this.props;
 		if (!wasAuthenticated && isAuthenticated) {
 			replace(redirect)
 		}
