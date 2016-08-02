@@ -31,11 +31,11 @@ http://localhost:3030
 
 ## Addons
 
-* use propTypes to validate props
+* Use propTypes to validate props
 
     [ref: ] <a href="https://www.npmjs.com/package/react-immutable-proptypes">if immutable</a>
     
-* resolve of authentication
+* Solution of authentication
     * handle it in route middleware
     * [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
 
