@@ -18,6 +18,6 @@ Nest2Origin.contextTypes = {
 
 var Nest2 = connect(
     (state, ownProps)=>({query: ownProps.location.query})
-)
-(Nest2Origin);
+)(Nest2Origin);
+
 export { Nest2 as default }
