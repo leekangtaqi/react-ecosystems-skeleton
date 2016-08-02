@@ -15,7 +15,7 @@ http://localhost:3030
 
 ## Todo
 
-* to build components with FP instead of Class
-* use propTypes to validate props
+* use propTypes to validate props                 ok
+* use normalizr to flat data structure
 * use reselect
 * use addons
