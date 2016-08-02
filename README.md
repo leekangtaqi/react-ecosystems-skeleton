@@ -21,7 +21,8 @@ http://localhost:3030
     
 * resolve of authentication
 
-    [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
+    opt1 * handle it in route middleware
+    opt2 * [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
     
 * use normalizr to flat data structure
 * use reselect
