@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export default class TodoList extends React.Component {
     static fetchData({ store }){
@@ -56,6 +57,10 @@ export default class TodoList extends React.Component {
             </div>
         )
     }
+}
+
+TodoList.propTypes = {
+    todos: ImmutablePropTypes.list
 }
 
 var App = connect(
