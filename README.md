@@ -15,6 +15,6 @@ http://localhost:3030
 
 ## Todo
 
-to build components with FP instead of Class
-use reselect
-use addons
+* to build components with FP instead of Class
+* use reselect
+* use addons
