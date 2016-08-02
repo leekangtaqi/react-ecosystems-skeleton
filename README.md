@@ -2,6 +2,18 @@
 ---
 react+redux+redux-saga+react-router-redux+immutable
 
+## Recipes
+* react
+* redux
+* react-redux
+* react-router
+* react-router-redux
+* redux-saga
+* immutable
+* reselect
+* normalizr
+
+
 ## Get Started
 
 ```node
