@@ -1,13 +1,12 @@
 import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
-import configureStore from '../../client/config/store';
 import React from 'react';
 import { wrap } from 'co';
 import { rootSaga } from '../../client/registerSagas';
 import { END } from 'redux-saga';
 
-export function RouteMatchHandler(data){
+export function RouteMatchHandler(data, store){
   return new Promise((resolve, reject) => {
     match(data, (error, redirectLocation, renderProps) => {
       if (error) {
@@ -25,18 +24,17 @@ export function RouteMatchHandler(data){
         // You can also check renderProps.components or renderProps.routes for
         // your "not found" component or route respectively, and send a 404 as
         // below, if you're using a catch-all route.
-        let { query, params, components, history} = renderProps;
-        let store = configureStore();
+        let { query, params, components, history } = renderProps;
         let rootTask = store.runSaga(rootSaga);
         let html = null; 
         //fetchData entry point
         wrap(execFetchDataEntryPoint)(components, { query, params, store, history })
           .then(() => {
-            renderToString(
-              <Provider store={store}>
-                {<RouterContext {...renderProps} />}
-              </Provider>
-            )
+            // renderToString(
+            //   <Provider store={store}>
+            //     {<RouterContext {...renderProps} />}
+            //   </Provider>
+            // )
             return store.dispatch(END);
           })
           .then(() => {

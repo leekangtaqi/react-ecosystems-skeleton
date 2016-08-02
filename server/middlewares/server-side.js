@@ -1,12 +1,16 @@
 import { RouteMatchHandler } from '../util/route.match'
-import { routes } from '../../client/routes';
+import { getRoutes } from '../../client/routes';
 import composeRoot from '../../client/config/root';
+import configureStore from '../../client/config/store';
 
 export default function* serverSide(){
 	// Note that req.url here should be the full URL path from
 	// the original request, including the query string.
+	let store = configureStore();
+	let routes = getRoutes(store);
 	let data = { routes, location: this.path }
-	let { code, payload } = yield RouteMatchHandler(data);
+	console.warn(routes)
+	let { code, payload } = yield RouteMatchHandler(data, store);
 	switch(code){
 		case 500:
 			this.status = code;

@@ -17,6 +17,7 @@ if(isBrowser()){
     //server-side
     let rs = [];
     rs.push(require('./todo/todo.reducers'));
+    rs.push(require('./login/login.reducers'));
     let reducers = rs.reduce((o, m) => {
         for(var p in m['default']){
             o[p] = m['default'][p];
