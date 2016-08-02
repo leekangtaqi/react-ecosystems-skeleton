@@ -40,6 +40,7 @@
     "react-router": "^2.4.1",
     "react-router-redux": "^4.0.4",
     "redux": "^3.5.2",
+    "redux-auth-wrapper": "^0.6.0",
     "redux-saga": "^0.10.4",
     "reselect": "^2.5.1",
     "swig": "^1.4.2"
