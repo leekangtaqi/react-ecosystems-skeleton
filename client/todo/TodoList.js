@@ -60,7 +60,9 @@ export default class TodoList extends React.Component {
 }
 
 TodoList.propTypes = {
-    todos: ImmutablePropTypes.list
+    todos: ImmutablePropTypes.list,
+    visibilityFilter: React.PropTypes.string,
+    children: React.PropTypes.element
 }
 
 var App = connect(
