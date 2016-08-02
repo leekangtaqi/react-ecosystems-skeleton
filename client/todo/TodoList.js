@@ -6,7 +6,26 @@ import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
+@connect(
+    (state, ownProps) => ({
+        todos: state.todos,
+        visibilityFilter: state.visibilityFilter,
+        query: ownProps.location.query
+    }),
+    dispatch => ({
+        addTodo: text => dispatch(addTodo(text)),
+        toggleTodo: id => () => dispatch(toggleTodo(id)),
+        doSomeRoute: ()=> dispatch(doSomeRoute()),
+        toggleFilter: text=> () => dispatch(toggleFilter(text))
+    })
+)
 export default class TodoList extends React.Component {
+    static propTypes = {
+        todos: ImmutablePropTypes.list,
+        visibilityFilter: React.PropTypes.string,
+        children: React.PropTypes.element
+    }
+
     static fetchData({ store }){
         return store.dispatch(addTodo('hehe1'));
     }
@@ -58,29 +77,3 @@ export default class TodoList extends React.Component {
         )
     }
 }
-
-TodoList.propTypes = {
-    todos: ImmutablePropTypes.list,
-    visibilityFilter: React.PropTypes.string,
-    children: React.PropTypes.element
-}
-
-var App = connect(
-    function mapStateToProps(state, ownProps){
-        return {
-            todos: state.todos,
-            visibilityFilter: state.visibilityFilter,
-            query: ownProps.location.query
-        }
-    },
-    function mapDispatchToProps(dispatch){
-        return {
-            addTodo: text => dispatch(addTodo(text)),
-            toggleTodo: id => () => dispatch(toggleTodo(id)),
-            doSomeRoute: ()=> dispatch(doSomeRoute()),
-            toggleFilter: text=> () => dispatch(toggleFilter(text))
-        }
-    }
-)(TodoList);
-
-export { App as default };

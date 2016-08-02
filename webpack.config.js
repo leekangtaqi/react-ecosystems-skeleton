@@ -11,7 +11,7 @@ let config = {
                 exclude: /node_modules/,
                 loaders: [
                     'react-hot', 
-                    'babel?presets[]=es2015,presets[]=stage-0,presets[]=react'
+                    'babel?plugins[]=transform-decorators-legacy,presets[]=es2015,presets[]=stage-0,presets[]=react'
                 ],
             }
         ]

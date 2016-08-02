@@ -3,7 +3,14 @@ import { connect } from 'react-redux';
 import { login } from './login.actions';
 import { routerActions } from 'react-router-redux';
 
-class Login extends React.Component {
+@connect(
+	(state, ownProps) => ({ 
+		isAuthenticated: state.user && state.user.name || false, 
+		redirect: ownProps.location.query.redirect || '/'
+	}), 
+	{ login, replace: routerActions.replace }
+)
+export default class Login extends React.Component {
 	componentWillMount() {
 		const { isAuthenticated, replace, redirect } = this.props
 		if (isAuthenticated) {
@@ -41,12 +48,3 @@ class Login extends React.Component {
 		)
 	}
 }
-
-let LoginContainer = connect(
-	(state, ownProps) => ({ 
-		isAuthenticated: state.user && state.user.name || false, 
-		redirect: ownProps.location.query.redirect || '/'
-	}), 
-	{ login, replace: routerActions.replace }
-)(Login)
-export { LoginContainer as default };
