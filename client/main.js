@@ -17,11 +17,7 @@ let store = configureStore(initalState);
 
 let rootTask = store.runSaga(rootSaga);
 
-let { root, history } = composeRoot(store, browserHistory, routes);
-
-history.listen(location => {
-    
-});
+let { root } = composeRoot(store, browserHistory, routes);
 
 ReactDOM.render(
     root,
