@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 
 export function addTodo(text){
     return new Promise((resolve, reject) => {
-        resolve({
+        return resolve({
             type: 'addTodoAsync',
             payload: {
                 id: uid(),

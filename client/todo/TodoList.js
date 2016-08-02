@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 export default class TodoList extends React.Component {
     static fetchData({ store }){
-        return store.dispatch(addTodo('hehe'));
+        return store.dispatch(addTodo('hehe1'));
     }
     constructor(props, context){
         super(props, context);

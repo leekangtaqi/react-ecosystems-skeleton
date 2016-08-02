@@ -5,6 +5,7 @@ import configureStore from '../../client/config/store';
 import React from 'react';
 import { wrap } from 'co';
 import { rootSaga } from '../../client/registerSagas';
+import { END } from 'redux-saga';
 
 export function RouteMatchHandler(data){
   return new Promise((resolve, reject) => {
@@ -27,7 +28,7 @@ export function RouteMatchHandler(data){
         let { query, params, components, history} = renderProps;
         let store = configureStore();
         let rootTask = store.runSaga(rootSaga);
-        let html = null;
+        let html = null; 
         //fetchData entry point
         wrap(execFetchDataEntryPoint)(components, { query, params, store, history })
           .then(() => {
@@ -37,9 +38,6 @@ export function RouteMatchHandler(data){
               </Provider>
             )
             return store.dispatch(END);
-          })
-          .then(() => {
-            return rootTask.done
           })
           .then(() => {
             html = renderToString(
@@ -64,12 +62,16 @@ export function RouteMatchHandler(data){
 
 //helpers
 function* execFetchDataEntryPoint(components, metadata){
-  if(!components || !components.length){
-    return;
+  try{
+    if(!components || !components.length){
+      return;
+    }
+    let component = components[0].WrappedComponent ? components[0].WrappedComponent : components[0];
+    if(component.fetchData){
+      yield component.fetchData(metadata);
+    }
+    return yield execFetchDataEntryPoint(components.slice(1), metadata);
+  }catch(err){
+    console.error(err);
   }
-  let component = components[0].WrappedComponent ? components[0].WrappedComponent : components[0];
-  if(component.fetchData){
-    yield component.fetchData(metadata);
-  }
-  return yield getFetchDataEntryPoint(components.slice(1), metadata);
 }

@@ -1,12 +1,12 @@
-import { put } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { put, fork } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga';
 
-function* addTodoHandler(action){
+function* addTodoHandler(action){	
 	yield put({type: 'addTodo', payload: action.payload})
 }
 
 const testWatcher = function* (){
-	yield takeEvery('addTodoAsync', addTodoHandler);
+	yield takeLatest('addTodoAsync', addTodoHandler);
 }
 
 export default {
