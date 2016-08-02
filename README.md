@@ -13,7 +13,7 @@ http://localhost:8080
 gulp build
 http://localhost:3030
 
-## Todo
+## addons
 
 * use propTypes to validate props
 
@@ -22,6 +22,9 @@ http://localhost:3030
 * resolve of authentication
     * handle it in route middleware
     * [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
+
+## Todo
+
 * use normalizr to flat data structure
 * use reselect
 * use addons
