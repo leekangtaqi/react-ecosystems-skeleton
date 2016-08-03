@@ -51,7 +51,8 @@ http://localhost:3030
       
          Use in mapStateToProps
       * Access props   
-         * 1
+         * multi copy of a selector, allow each component have his own selector
+         * with Redux, it can apply makeMapStateToProps to gen a independent selector
          
 ## Todo
 
