@@ -35,7 +35,7 @@ http://localhost:3030
 
 * Use propTypes to validate props
 
-    [ref: ] <a href="https://www.npmjs.com/package/react-immutable-proptypes">if immutable</a>
+    * [ref: ] <a href="https://www.npmjs.com/package/react-immutable-proptypes">with immutable</a>
     
 * Solution of authentication
     * handle it in route middleware
