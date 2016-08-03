@@ -41,6 +41,18 @@ http://localhost:3030
     * handle it in route middleware
     * [ref: ] <a href="https://github.com/mjrussell/redux-auth-wrapper">react-redux-router</a>
 
+* Expensive calculation
+    
+   ###Reselect
+      * Pros
+         * Memoize
+         * Composibility
+      * With Redux
+      
+         Use in mapStateToProps
+      * Access props   
+         * 1
+         
 ## Todo
 
 * use normalizr to flat data structure
