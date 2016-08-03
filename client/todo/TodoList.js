@@ -5,10 +5,11 @@ import {Link} from 'react-router';
 import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { getVisibleTodos } from './todo.selectors.js';
 
 @connect(
     (state, ownProps) => ({
-        todos: state.todos,
+        todos: getVisibleTodos(state),
         visibilityFilter: state.visibilityFilter,
         query: ownProps.location.query
     }),
@@ -45,16 +46,7 @@ export default class TodoList extends React.Component {
                 <input type="text" placeholder="add todo" ref="newTodo"/>
                 <input onClick={this.onAddTodo.bind(this)} type="button" value="add"/>
                 <ul>
-                    {this.props.todos.filter(t=>{
-                        switch (this.props.visibilityFilter) {
-                            case 'SHOW_ALL':
-                                return true;
-                            case 'SHOW_DONE':
-                                return t.get('isDone');
-                            case 'SHOW_TODOS':
-                                return !t.get('isDone');
-                        }
-                    }).map(t=>(
+                    {this.props.todos.map(t => (
                         <li key={t.get('id')} onClick={this.props.toggleTodo(t.get('id'))}>
                             <Todo todo={t}/>
                         </li>

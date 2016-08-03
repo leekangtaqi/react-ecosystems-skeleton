@@ -30,11 +30,11 @@ export function RouteMatchHandler(data, store){
         //fetchData entry point
         wrap(execFetchDataEntryPoint)(components, { query, params, store, history })
           .then(() => {
-            // renderToString(
-            //   <Provider store={store}>
-            //     {<RouterContext {...renderProps} />}
-            //   </Provider>
-            // )
+            renderToString(
+              <Provider store={store}>
+                {<RouterContext {...renderProps} />}
+              </Provider>
+            )
             return store.dispatch(END);
           })
           .then(() => {

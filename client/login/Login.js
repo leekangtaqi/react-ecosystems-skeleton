@@ -26,7 +26,7 @@ export default class Login extends React.Component {
 		}
 	}
 
-	onClick(e){
+	onLogin = e => {
 		e.preventDefault();
 		this.props.login({
 			name: this.refs.name.value,
@@ -43,7 +43,7 @@ export default class Login extends React.Component {
 				{'Admin?'}
 				<input type="checkbox" ref="admin" />
 				<br/>
-				<button>Login</button>
+				<button onClick={this.onLogin}>Login</button>
 			</div>
 		)
 	}
