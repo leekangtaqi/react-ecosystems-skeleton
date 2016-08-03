@@ -53,8 +53,12 @@ http://localhost:3030
       * Access props   
          * multi copy of a selector, allow each component have his own selector
          * with Redux, it can apply makeMapStateToProps to gen a independent selector
+
+* Present UI 
+
+   React-bootstrap
          
 ## Todo
 
 * use normalizr to flat data structure
-* use other addons
+* update continuously
