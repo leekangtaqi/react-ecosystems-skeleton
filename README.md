@@ -13,6 +13,7 @@
 * normalizr
 * babel - es7
 * webpack
+* redux-form
 
 
 ## Get Started
