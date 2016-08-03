@@ -43,7 +43,7 @@ http://localhost:3030
 
 * Expensive calculation
     
-   ###Reselect
+   Reselect
       * Pros
          * Memoize
          * Composibility
