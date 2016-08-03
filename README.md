@@ -56,5 +56,4 @@ http://localhost:3030
 ## Todo
 
 * use normalizr to flat data structure
-* use reselect
 * use other addons
