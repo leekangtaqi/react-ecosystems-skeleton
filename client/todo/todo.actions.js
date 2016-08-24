@@ -1,37 +1,12 @@
-const uid = () => Math.random().toString(34).slice(2);
 import { push } from 'react-router-redux'
+import { createAction } from 'redux-actions';
 
-export function addTodo(text){
-    return new Promise((resolve, reject) => {
-        return resolve({
-            type: 'addTodoAsync',
-            payload: {
-                id: uid(),
-                isDone: false,
-                text: text
-            }
-        })
-    })
-}
+export const addTodo = createAction('addTodoAsync');
 
-export function toggleFilter(intention){
-    return dispatch => {
-        setTimeout(()=>{
-            dispatch({
-                type: 'change',
-                payload: intention
-            })
-        }, 0)
-    }
-}
+export const toggleFilter = createAction('change');
 
-export function toggleTodo(id){
-    return {
-        type: 'toggleTodo',
-        payload: id
-    }
-}
+export const toggleTodo = createAction('toggleTodo');
 
-export function doSomeRoute(dispatch){
+export const doSomeRoute = dispatch => {
     return push('/nest3');
 }

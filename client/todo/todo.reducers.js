@@ -1,29 +1,29 @@
-import {List, Map} from 'immutable';
+import { List, Map } from 'immutable';
+import { handleActions } from 'redux-actions';
+const uid = () => Math.random().toString(34).slice(2);
 
-const todos = (todos=List([]), action) => {
-    switch (action.type){
-        case 'addTodo':
-            return todos.push(Map(action.payload));
-        case 'toggleTodo':
-            return todos.map(t => {
+export default {
+    todos: handleActions({
+        'addTodo' (state, action){
+            return state.push(Map({
+                id: uid(),
+                done: false,
+                text: action.payload
+            }))
+        },
+        'toggleTodo' (state, action){
+            return state.map(t => {
                 if(t.get('id') === action.payload){
                     return t.update('isDone', isDone => !isDone);
                 }else{
                     return t;
                 }
-            });
-        default:
-            return todos;
-    }
-};
-
-const visibilityFilter = (visibilityFilter="SHOW_ALL", action) => {
-    switch (action.type){
-        case 'change':
+            })
+        }
+    }, List([])),
+    visibilityFilter: handleActions({
+        'change' (state, action){
             return action.payload;
-        default:
-            return visibilityFilter;
-    }
-};
-
-export default {todos, visibilityFilter};
+        }
+    }, "SHOW_ALL")
+}
