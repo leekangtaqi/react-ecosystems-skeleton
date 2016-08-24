@@ -62,5 +62,4 @@ http://localhost:3030
 ## Todo
 
 * use normalizr to flat data structure
-* use redux form
 * update continuously
