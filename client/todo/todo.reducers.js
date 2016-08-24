@@ -21,6 +21,7 @@ export default {
             })
         }
     }, List([])),
+    
     visibilityFilter: handleActions({
         'change' (state, action){
             return action.payload;

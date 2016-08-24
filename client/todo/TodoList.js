@@ -41,7 +41,6 @@ export default class TodoList extends React.Component {
         this.props.doSomeRoute();
     }
     render(){
-        console.warn(this.props.todos.get(0))
         return(
             <div>
                 <input type="text" placeholder="add todo" ref="newTodo"/>
