@@ -7,8 +7,8 @@
 * react-redux
 * react-router
 * react-router-redux
-* redux-actions
 * redux-saga
+* redux-actions
 * immutable
 * reselect
 * normalizr
