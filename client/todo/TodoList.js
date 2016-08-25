@@ -3,6 +3,7 @@ import Todo from './Todo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import * as actions from './todo.actions';
 import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -15,10 +16,7 @@ import { getVisibleTodos } from './todo.selectors.js';
         query: ownProps.location.query
     }),
     dispatch => ({
-        addTodo: text => dispatch(addTodo(text)),
-        toggleTodo: id => () => dispatch(toggleTodo(id)),
-        doSomeRoute: ()=> dispatch(doSomeRoute()),
-        toggleFilter: text=> () => dispatch(toggleFilter(text))
+        actions: bindActionCreators(actions, dispatch)
     })
 )
 export default class TodoList extends React.Component {
@@ -35,11 +33,11 @@ export default class TodoList extends React.Component {
         super(props, context);
     }
     onAddTodo(){
-        this.props.addTodo(this.refs.newTodo.value);
+        this.props.actions.addTodo(this.refs.newTodo.value);
         this.refs.newTodo.value = "";
     }
     jump(){
-        this.props.doSomeRoute();
+        this.props.actions.doSomeRoute();
     }
     render(){
         return(
@@ -48,15 +46,15 @@ export default class TodoList extends React.Component {
                 <input onClick={this.onAddTodo.bind(this)} type="button" value="add"/>
                 <ul>
                     {this.props.todos.map(t => (
-                        <li key={t.get('id')} onClick={this.props.toggleTodo(t.get('id'))}>
+                        <li key={t.get('id')} onClick={() => {this.props.actions.toggleTodo(t.get('id'))}}>
                             <Todo todo={t}/>
                         </li>
                     ))}
                 </ul>
                 <ul>
-                    <li className={classNames({fontRed: this.props.visibilityFilter == 'SHOW_ALL', backgroundBlue: true})} onClick={this.props.toggleFilter('SHOW_ALL')}>SHOW_ALL</li>
-                    <li className={classNames({fontRed: this.props.visibilityFilter == 'SHOW_DONE', backgroundBlue: true})} onClick={this.props.toggleFilter('SHOW_DONE')}>SHOW_DONE</li>
-                    <li className={classNames({fontRed: this.props.visibilityFilter == 'SHOW_TODOS', backgroundBlue: true})} onClick={this.props.toggleFilter('SHOW_TODOS')}>SHOW_TODOS</li>
+                    <li className={classNames({fontRed: this.props.visibilityFilter == 'SHOW_ALL', backgroundBlue: true})} onClick={() => {this.props.actions.toggleFilter('SHOW_ALL')}}>SHOW_ALL</li>
+                    <li className={classNames({fontRed: this.props.visibilityFilter == 'SHOW_DONE', backgroundBlue: true})} onClick={() => {this.props.actions.toggleFilter('SHOW_DONE')}}>SHOW_DONE</li>
+                    <li className={classNames({fontRed: this.props.visibilityFilter == 'SHOW_TODOS', backgroundBlue: true})} onClick={() => {this.props.actions.toggleFilter('SHOW_TODOS')}}>SHOW_TODOS</li>
                 </ul>
                 <ul>
                     <li><Link to="/nest1">跳转1</Link></li>
