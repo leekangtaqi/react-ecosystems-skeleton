@@ -1,7 +1,8 @@
 import React from 'react';
 import Todo from './Todo';
-import {connect} from 'react-redux';
-import {Link} from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { addTodo, toggleTodo, doSomeRoute, toggleFilter } from './todo.actions';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
