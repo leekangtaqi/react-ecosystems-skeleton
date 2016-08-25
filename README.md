@@ -63,4 +63,5 @@ http://localhost:3030
 ## Todo
 
 * use normalizr to flat data structure
+   * to flat response data, resolve the problem of data nested deeply.
 * update continuously
