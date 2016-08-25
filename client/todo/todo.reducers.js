@@ -7,7 +7,7 @@ export default {
         'addTodo' (state, action){
             return state.push(Map({
                 id: uid(),
-                done: false,
+                isDone: false,
                 text: action.payload
             }))
         },
