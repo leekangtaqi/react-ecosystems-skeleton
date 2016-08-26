@@ -3,6 +3,9 @@
 <head>
     <meta charset='UTF-8' />
     <title>react production - server side rendering</title>
+    {% if env === 'production' %}
+    <link rel="stylesheet" href="/dist/public/style/style.css">
+    {% endif %}
 </head>
 <body>
     <div id='app'>{{ html|safe }}</div>
