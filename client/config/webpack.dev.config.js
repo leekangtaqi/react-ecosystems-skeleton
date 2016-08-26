@@ -8,6 +8,14 @@ module.exports = {
         'webpack/hot/only-dev-server',
         './client/main.js'
     ],
+    module: {
+        loaders: [
+            { 
+                test: /\.scss$/i, 
+                loader: 'style!css!sass'
+            }
+        ]
+    },
     devtool: 'eval',
     output: {
         path: path.resolve(__dirname, '../'),

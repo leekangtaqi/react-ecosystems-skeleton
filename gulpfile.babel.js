@@ -5,6 +5,8 @@ import path from 'path';
 import runSequence from 'run-sequence';
 import nodemon from 'nodemon';
 import gulpLoadPlugins from 'gulp-load-plugins';
+import named from 'vinyl-named';
+import webpack from 'webpack';
 
 var plugins = gulpLoadPlugins();
 const entry = './client/**';
@@ -29,13 +31,18 @@ function onProcessComplete(startTime){
         plugins.util.colors.green(parseFloat((endTime - startTime)/1000, 10).toFixed(2)) + ' s');
 }
 
-gulp.task("webpack:pro", () => {
+gulp.task("webpack:pro", cb => {
     const config = require('./webpack.config');
-    return gulp.src('client/main.js')
-        .pipe(plugins.webpack(config))
-        .pipe(plugins.uglify().on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-        .pipe(plugins.gzip())
-        .pipe(gulp.dest('dist/client/assets/js'))
+    webpack(config, (err, stats) => {
+        if(err) throw new gutil.PluginError("webpack", err);
+        plugins.util.log("[webpack]", stats.toString());
+        cb(); 
+    })
+        // .pipe(gulp.dest('dist/client/public/'))
+
+        // .pipe(plugins.uglify().on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
+        
+        // .pipe(plugins.gzip())
 });
 
 gulp.task('start:server', cb => {

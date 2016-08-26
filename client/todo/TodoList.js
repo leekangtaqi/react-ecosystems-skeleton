@@ -42,7 +42,7 @@ export default class TodoList extends React.Component {
     render(){
         return(
             <div>
-                <input type="text" placeholder="add todo" ref="newTodo"/>
+                <input className={'red'} type="text" placeholder="add todo" ref="newTodo"/>
                 <input onClick={this.onAddTodo.bind(this)} type="button" value="add"/>
                 <ul>
                     {this.props.todos.map(t => (

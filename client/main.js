@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 import { getRoutes } from './routes';
 import { fromJS } from 'immutable';
 import { rootSaga } from './registerSagas';
+import './main.scss';
 
 let initalState = window.__INITIAL_STATE__;
 if(initalState){

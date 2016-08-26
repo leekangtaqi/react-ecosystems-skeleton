@@ -1,6 +1,5 @@
-var webpack = require('webpack');
-var path = require('path');
-
+let webpack = require('webpack');
+let path = require('path');
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 
 let config = {
@@ -18,13 +17,21 @@ let config = {
     }
 };
 
-let mixedConfig = mixin(config, require(`./client/config/webpack.${refineEnv(env)}.config`));
+let conf = deepMixin(config, require(`./client/config/webpack.${refineEnv(env)}.config`));
 
-module.exports = mixedConfig;
+module.exports = conf;
 
-function mixin(t, s){
+function deepMixin(t, s){
     for(let p in s){
-        t[p] = s[p];
+        if(t.hasOwnProperty(p)){
+            if(Array.isArray(t[p])){
+                t[p] = [...s[p], ...t[p]];
+            }else if(typeof t[p] === 'object'){
+                deepMixin(t[p], s[p])
+            }
+        }else{
+            t[p] = s[p];
+        }
     }
     return t;
 }

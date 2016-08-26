@@ -1,18 +1,29 @@
-var webpack = require('webpack');
-var path = require('path');
+let webpack = require('webpack');
+let path = require('path');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: {
-        main: './client/main.js'
+    entry: [
+        './client/main.js',
+        './client/main.scss'
+    ],
+    module: {
+        loaders: [
+            { 
+                test: /\.scss$/i, 
+                loader: ExtractTextPlugin.extract(['css','sass'])
+            }
+        ]
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, '../../dist/public'),
+        filename: 'js/bundle.js'
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
         }),
+        new ExtractTextPlugin("style/style.css"),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
@@ -22,11 +33,6 @@ module.exports = {
             mangle: true,
             minimize: true
         }),
-    ],
-    devServer: {
-        historyApiFallback: true,
-        contentBase: './client',
-        hot: true
-    }
+    ]
 };
 
