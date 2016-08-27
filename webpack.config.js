@@ -12,7 +12,12 @@ let config = {
                     'react-hot', 
                     'babel?plugins[]=transform-decorators-legacy,presets[]=es2015,presets[]=stage-0,presets[]=react'
                 ],
-            }
+            },
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+			{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+			{ test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
+			{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+			{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
         ]
     }
 };
@@ -21,6 +26,9 @@ let conf = deepMixin(config, require(`./client/config/webpack.${refineEnv(env)}.
 
 module.exports = conf;
 
+/**
+ * helpers
+ */
 function deepMixin(t, s){
     for(let p in s){
         if(t.hasOwnProperty(p)){

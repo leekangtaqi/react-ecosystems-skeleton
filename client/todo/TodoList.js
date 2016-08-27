@@ -43,7 +43,7 @@ export default class TodoList extends React.Component {
         return(
             <div>
                 <input className={'red'} type="text" placeholder="add todo" ref="newTodo"/>
-                <input onClick={this.onAddTodo.bind(this)} type="button" value="add"/>
+                <input className={'btn'} onClick={this.onAddTodo.bind(this)} type="button" value="add"/>
                 <ul>
                     {this.props.todos.map(t => (
                         <li key={t.get('id')} onClick={() => {this.props.actions.toggleTodo(t.get('id'))}}>
